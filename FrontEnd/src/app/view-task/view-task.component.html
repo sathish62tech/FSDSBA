@@ -1,0 +1,91 @@
+<div class="container" style="margin-top: 20px">
+  <div class="outer-div">
+    <div class="row">
+      <div class="col-md-1" id="sortLabel">
+        <label>Project:</label>
+      </div>
+      <div class="col-md-3" id="sortLabel">
+        <input type="text" [(ngModel)]="project" class="form-control" [disabled]="true">
+      </div>
+      <div class="col-md-1" id="sortLabel">
+        <button type="button" class="btn btn-success btn-sm" id="search" data-toggle="modal"
+          data-target="#ProjectModal">Search</button>
+      </div>
+      <div class="col-md-1" id="sortLabel"><label>OrderBy:</label>
+      </div>
+      <div class="col-md-6">
+        <button type="button" class="btn btn-outline-info btn-sm" style="margin-right: 5px;" id="sortBystartDate" (click)="sort('startDate')">Start Date</button>
+        <button type="button" class="btn btn-outline-info btn-sm" style="margin-right: 5px;" id="sortByendDate" (click)="sort('endDate')">End Date</button>
+        <button type="button" class="btn btn-outline-info btn-sm" style="margin-right: 5px;" id="sortByPriority" (click)="sort('Priority')">Priority</button>
+        <button type="button" class="btn btn-outline-info btn-sm" style="margin-right: 5px;" id="sortByCompleted" (click)="sort('Completed')">Completed</button>
+        <button type="button" class="btn btn-outline-dark btn-sm" style="margin-right: 5px;" id="clearFilter" (click)="clearFilter()">Clear Filter</button>
+      </div>
+    </div>
+  
+    <div>
+      <hr>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Task</th>
+          <th scope="col">Parent</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Start</th>
+          <th scope="col">End</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td>{{task.task}}</td>
+          <td>parent</td>
+          <td>{{task.priority}}</td>
+          <td>{{task.startDate | date: 'dd/MM/yyyy'}}</td>
+          <td>{{task.endDate | date: 'dd/MM/yyyy'}}</td>
+          <td>{{task.status | titlecase}}</td>
+          <td>
+            <button class="btn btn-outline-dark btn-sm" id="edit" (click)="editTask(task.taskId)"
+              [disabled]="task.status == 'COMPL'">Edit</button>
+            <button class="btn btn-outline-danger btn-sm" style="margin-left:5px" id="delete" (click)="endTask(task.taskId)"
+              [disabled]="task.status == 'COMPL'">End</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>  
+  </div>
+  
+  <!--Project Modal-->
+  <div class="modal fade" id="ProjectModal" tabindex="-1" role="dialog" aria-labelledby="ProjectModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="ProjectModalLabel">Select the project :</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchProject">
+          <br>
+          <br>
+          <div class="input-group mb-3" *ngFor="let project of projects | filterProject : searchProject : 'name'">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input type="radio" value="{{project.projectId}}-{{project.project}}" [(ngModel)]="selectedProject">
+              </div>
+            </div>
+            &nbsp; {{project.project}}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveProject()" [disabled]="!selectedProject">Save
+            changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

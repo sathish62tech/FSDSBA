@@ -1,0 +1,82 @@
+package com.capsule.TaskTracker.jdbc;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.sql.DataSource;
+
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.capsule.TaskTracker.entity.ParentTask;
+import com.capsule.TaskTracker.entity.Task;
+
+
+@Repository
+public class TaskHibernateDao implements TaskDAO{
+
+	EntityManager entityManager;
+	
+	@Autowired
+	public TaskHibernateDao(EntityManager theEntityManager) {
+		entityManager = theEntityManager;
+	}
+	
+
+	@Override
+	@Transactional
+	public boolean insertTask(Task task) {
+		System.out.println("inserting task " + task);
+		Session currentSession = entityManager.unwrap(Session.class);
+		System.out.println("Current session insert" + currentSession);
+		String pTaskName = task.getParentTask().getParentTask();
+		Query<ParentTask> parentTaskQuery = currentSession.createQuery("from ParentTask where parentName=:pTaskName");
+		System.out.println("parent id and task  " + parentTaskQuery.getResultList());		
+//		task.setParentTask(p);
+		System.out.println("task aft setting parent id" + task);
+		Task insTask = entityManager.merge(task);
+		System.out.println(insTask);
+		
+		return true;
+	}
+
+	@Override
+	public Task getTask(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Task> getTaskList() {
+		System.out.println("Hibernate");
+		Session currentSession = entityManager.unwrap(Session.class);
+		System.out.println("Session" + currentSession);
+		int theTaskId=1;
+		Query<Task> query = 
+				currentSession.createQuery("select i from Task i JOIN FETCH i.parentTask",Task.class);
+//		session.createQuery("select i from Instructor i "
+//				+ "JOIN FETCH i.courses "
+//				+ "where i.id=:theInstructorId", 
+//		Instructor.class);
+		System.out.println("Query" + query);
+		List<Task> taskList=query.getResultList();
+//		System.out.println(taskList);
+		return taskList;
+	}
+
+	@Override
+	public boolean deleteTask(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateTask(int id, String name) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

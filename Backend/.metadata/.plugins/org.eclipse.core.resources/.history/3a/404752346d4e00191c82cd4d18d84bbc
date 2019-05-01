@@ -1,0 +1,49 @@
+package com.cicd.example.repository;
+
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.sql.DataSource;
+
+import org.hibernate.Session;
+import org.hibernate.annotations.Parent;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.cicd.example.entity.Task;
+
+
+
+@Repository
+public class TaskDAO {
+
+	EntityManager entityManager;
+	
+	@Autowired
+	public TaskDAO(EntityManager theEntityManager) {
+		entityManager = theEntityManager;
+	}
+	
+	
+	
+	public List<Task> getTaskList(int id) {
+//		System.out.println("Hibernate");
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		Query<Task> query = 
+				currentSession.createQuery("from Task where project_id=:id",Task.class);
+		query.setParameter("id", id);
+//		System.out.println("Query" + query);
+		List<Task> taskList=query.getResultList();
+		return taskList;
+	}
+
+}

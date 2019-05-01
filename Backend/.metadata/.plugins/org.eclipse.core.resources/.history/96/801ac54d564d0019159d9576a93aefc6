@@ -1,0 +1,152 @@
+package com.capsule.TaskTracker.component;
+
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.capsule.TaskTracker.Exception.TaskTrackerException;
+import com.capsule.TaskTracker.entity.Project;
+import com.capsule.TaskTracker.entity.Task;
+import com.capsule.TaskTracker.service.ProjectService;
+
+
+@Controller
+@CrossOrigin(origins = "http://localhost:4200")
+public class ProjectControllerRest {
+	
+	@Autowired
+	ProjectService projectService;
+	
+	    // Get project List
+		@GetMapping(value="/projects")
+		@Produces({"application/json"})
+		@ResponseBody
+		public List<Project> getProjects(){
+			System.out.println("Project Controller");
+			return projectService.getProjects();
+		}
+
+		@PostMapping(value="/addproject")
+		@Consumes({"application/json"})
+		@ResponseBody
+		public Project createProject(@RequestBody Project project) throws TaskTrackerException{
+//			System.out.println("task passed" + task);
+			Project createdProject = null;
+			try {
+				createdProject = projectService.createProject(project);
+			} catch (Exception e) {
+				throw new TaskTrackerException("projectnot created, Check if Parent task exists!",e);
+			}
+			System.out.println(createdProject);
+			return createdProject;
+		}
+		
+		 // Edit project
+		@CrossOrigin(origins = "http://localhost:4200")
+		@PutMapping(value="/editproject")
+		@Consumes({"application/json"})
+		@ResponseBody
+		public ResponseEntity<Project> updateProject(@RequestBody Project project) throws TaskTrackerException{
+			boolean isCreated = false;
+			try {
+				isCreated = projectService.updateProject(project);
+			} catch (Exception e) {
+				throw new TaskTrackerException("Project not updated, Check if valid data is provided!",e);
+			}
+			if(isCreated){
+				return new ResponseEntity<Project>(HttpStatus.OK);
+			} else {
+//				return new ResponseEntity<Product>(HttpStatus.OK);
+				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).header("message", "Task Not Updated, Check Values provided").build();
+			}
+		}
+		
+		
+		 // Edit project
+		@CrossOrigin(origins = "http://localhost:4200")
+		@PutMapping(value="/deleteProject/{id}")
+		@Consumes({"application/json"})
+		@ResponseBody
+		public ResponseEntity<Project> deleteProject(@PathVariable int id) throws TaskTrackerException{
+			boolean isdeleted = false;
+			System.out.println("passed id " + id);
+			try {
+				isdeleted = projectService.deleteProject(id);
+			} catch (Exception e) {
+				throw new TaskTrackerException("project not deleted, Check if valid data is provided!",e);
+			}
+			if(isdeleted){
+				return new ResponseEntity<Project>(HttpStatus.OK);
+			} else {
+//				return new ResponseEntity<Product>(HttpStatus.OK);
+				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).header("message", "Project Not Updated, Check Values provided").build();
+			}
+		}
+		
+		
+		
+		
+		 // get 1 project
+		@GetMapping(value="/getproject/{id}")
+		@Produces({"application/json"})
+		@ResponseBody
+		public Project getProject(@PathVariable int id) throws TaskTrackerException{
+			System.out.println("get 1 project" + id);
+			Project projectFetched = null;
+			try {
+			    projectFetched = projectService.getProject(id);
+			} catch (Exception e) {
+				throw new TaskTrackerException("project not updated, Check if valid data is provided!",e);
+			}
+			return projectFetched;	
+		}
+		
+		 // get 1 project
+		@GetMapping(value="/getprojectByPName/{projectName}")
+		@Produces({"application/json"})
+		@ResponseBody
+		public Project getProjectByPName(@PathVariable String projectName) throws TaskTrackerException{
+			System.out.println("get 1 project" + projectName);
+			Project projectFetched = null;
+			try {
+			    projectFetched = projectService.getProjectByPName(projectName);
+			} catch (Exception e) {
+				throw new TaskTrackerException("project not updafetched, Check if valid data is provided!",e);
+			}
+			return projectFetched;	
+		}
+
+		
+		@GetMapping(value="/getcompleted/{id}")
+		@Produces({"application/json"})
+		@ResponseBody
+		public int getCompletedTasks(@PathVariable int id) {
+			System.out.println("getting completed task for project" + id);
+			List<Task> completedTasks = projectService.getCompletedTasks(id);
+			System.out.println(completedTasks.size());
+			return completedTasks.size();
+		}
+		
+		@GetMapping(value="/getProjectTasks/{id}")
+		@Produces({"application/json"})
+		@ResponseBody
+		public int getProjectTasks (@PathVariable int id) {
+			System.out.println("getting task for project" + id);
+			List<Task> projectTasks = projectService.getProjectTasks(id);
+			System.out.println(projectTasks.size());
+			return projectTasks.size();
+		}
+}

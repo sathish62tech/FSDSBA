@@ -1,0 +1,27 @@
+version: '2.1'
+
+services:
+  db:
+    container_name: mysql-lnkr
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass@word1
+      - MYSQL_DATABASE=microcred
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=pass@word1
+    ports:
+      - "3306:3306"
+    restart: always
+    network_mode: host
+    volumes:
+     - /opt/microcred/mysqldb:/var/lib/mysql  
+
+  tasktracker:
+    # image: rashmicn/backend-task-tracker
+    build: .
+    restart: always
+    network_mode: host
+    depends_on:
+      - db 
+    ports:
+      - 8083:8083

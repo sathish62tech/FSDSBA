@@ -1,0 +1,5 @@
+package com.cicd.example.controller;
+
+public class TaskControl {
+
+}

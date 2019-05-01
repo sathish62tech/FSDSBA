@@ -1,0 +1,103 @@
+package com.capsule.TaskTracker.jdbc;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.capsule.TaskTracker.entity.Task;
+import com.capsule.TaskTracker.entity.User;
+
+@Repository
+public class UserDAO {
+	
+EntityManager entityManager;
+	
+	@Autowired
+	public UserDAO(EntityManager theEntityManager) {
+		entityManager = theEntityManager;
+	}
+	
+
+	public boolean insertUser(User user) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		System.out.println("inserting user...........");
+		System.out.println(user);
+		
+		currentSession.save(user);
+		return true;
+	}
+
+	public User getUser(int userId) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		System.out.println(userId);
+		System.out.println("get user dta");
+		
+		Query<User> query = 
+				currentSession.createQuery("from User where userId=:id",User.class);
+		query.setParameter("id", userId);
+//		System.out.println("Query" + query);
+		
+		User existingUser = query.getSingleResult();
+		System.out.println("get user dta");
+		
+		System.out.println(existingUser);
+		return existingUser;
+	}
+
+	public List<User> getUserList() {
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query<User> query = 
+				currentSession.createQuery("from User",User.class);
+		
+		List<User> userList = query.getResultList();
+		System.out.println(userList);
+		
+		return userList;
+	}
+
+	public boolean deleteUser(int userId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean updateUser(User user) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		System.out.println("entring updater");
+		System.out.println(user);
+		
+		User existingUser = getUser(user.getUserId());
+		
+		System.out.println("this is our old user" + existingUser);
+		
+		Query<User> query = 
+				currentSession.createQuery("UPDATE User "
+						+ "set firstName = :firstName,"
+						+ "lastNmae = :lastName,"
+						+ "employeeId = :employeeId"
+						+ "where userId=s :id",User.class);
+		query.setParameter("id", user.getUserId());
+		query.setParameter("firstName", user.getUserId());
+		query.setParameter("lastName", user.getUserId());
+		query.setParameter("employeeId", user.getUserId());
+		
+		User updatedUser = query.getSingleResult();
+		System.out.println("after editing " + updatedUser);
+//		
+//		System.out.println("updating user.........");
+//		currentSession.save(existingUser);
+//		
+//		
+//		User diditupdtUser = getUser(user.getUserId());
+//		
+//		System.out.println("this is updated user" + diditupdtUser);
+		return true;
+	}
+
+}

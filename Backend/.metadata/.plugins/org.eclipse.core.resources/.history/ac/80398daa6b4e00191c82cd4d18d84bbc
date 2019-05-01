@@ -1,0 +1,5 @@
+package com.cicd.example.entity;
+
+public class Task {
+
+}

@@ -1,0 +1,4 @@
+#Tomcat publish data
+#Sat Feb 09 00:12:44 IST 2019
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\Admin\\.m2\\repository\\org\\springframework\\spring-web\\5.0.0.RELEASE\\spring-web-5.0.0.RELEASE.jar=C\:\\java cognizant\\apache-tomcat-9.0.14\\wtpwebapps\\TaskTrackerRest\\WEB-INF\\lib\\spring-web-5.0.0.RELEASE.jar
+org.eclipse.jst.jee.server\:TaskTrackerRest=C\:\\java cognizant\\apache-tomcat-9.0.14\\wtpwebapps\\TaskTrackerRest

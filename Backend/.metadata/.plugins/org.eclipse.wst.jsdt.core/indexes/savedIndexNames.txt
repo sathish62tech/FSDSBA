@@ -1,0 +1,10 @@
+INDEX VERSION 1.4+C:\Users\Admin\Desktop\CapsuleProject\Backend\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+251371450.index
+3919916392.index
+920157561.index
+1283891719.index
+1105153519.index
+3466272285.index
+721463569.index
+3905712538.index
+928935069.index

@@ -1,0 +1,95 @@
+package com.capsule.TaskTracker.component;
+
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.capsule.TaskTracker.service.TaskTrackerService;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.capsule.TaskTracker.entity.Task;
+
+
+@Controller
+public class TaskControllerRest {
+	
+	@Autowired
+	TaskTrackerService taskService;
+	
+	
+	// Get product list
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping(value="/task")
+	@Produces({"application/json"})
+	@ResponseBody
+	public List<Task> getTasks(){
+		System.out.println("contrller");
+		return taskService.getTasks();
+	}
+	// create product
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value="/addtask")
+	@Consumes({"application/json"})
+	@ResponseBody
+	public ResponseEntity<Task> createTask(@RequestBody Task task){
+		System.out.println("task passed" + task);
+		boolean isCreated = taskService.createTask(task);
+		if(isCreated){
+			return new ResponseEntity<Task>(HttpStatus.CREATED);
+		} else {
+//			return new ResponseEntity<Product>(HttpStatus.OK);
+			return ResponseEntity.status(HttpStatus.OK).header("message", "not created").build();
+		}
+	}
+	// get one product with given id, given name
+//	@GetMapping(value="/{id}", produces={
+//			MediaType.APPLICATION_JSON_VALUE,
+//			MediaType.APPLICATION_XML_VALUE
+//		})
+//	@ResponseBody
+//	public ResponseEntity<Product> getProduct(@PathVariable("id") int id){
+//		Product product = productService.getProduct(id);
+//		if(product != null){
+//			return ResponseEntity.status(HttpStatus.OK).body(product);			
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//		}
+//	}
+//	/*
+//	// delete product
+//	@DeleteMapping(value="/{id}", produces={
+//			MediaType.APPLICATION_JSON_VALUE,
+//			MediaType.APPLICATION_XML_VALUE
+//		})
+//	@ResponseBody
+//	public Product deleteProduct(@PathVariable("id") int id){
+//		return productService.deleteProduct(id);
+//	}
+//	// edit Task
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PutMapping(value="/edittask")
+	@Consumes({"application/json"})
+	@ResponseBody
+	public ResponseEntity<Task> updateProduct(@RequestBody Task task){
+		boolean isCreated = taskService.updateTask(task);
+		if(isCreated){
+			return new ResponseEntity<Task>(HttpStatus.CREATED);
+		} else {
+//			return new ResponseEntity<Product>(HttpStatus.OK);
+			return ResponseEntity.status(HttpStatus.OK).header("message", "not updated").build();
+		}
+	}
+}
