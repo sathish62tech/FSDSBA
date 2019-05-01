@@ -32,10 +32,10 @@ describe('UserService', () => {
   it(' post a User', () => {
 
     const userAdd = {
-      userId: '0',
-      firstName: 'Rashmi',
-      lastName: 'CN',
-      employeeId: '1123',
+      userId: '1',
+      firstName: 'Sathish',
+      lastName: 'Pachayappan',
+      employeeId: '457878',
       projectId: null,
       taskId: null
     }
@@ -52,10 +52,10 @@ describe('UserService', () => {
   it('lets test update', () => {
 
     const userEdit = {
-      userId: '2',
-      firstName: 'Rashmi',
-      lastName: 'Chudamani',
-      employeeId: '1123',
+      userId: '1',
+      firstName: 'Sathish Kumar',
+      lastName: 'Pachayappan',
+      employeeId: '457878',
       projectId: null,
       taskId: null
     }
@@ -71,10 +71,10 @@ describe('UserService', () => {
 
   it('delete user check', () => {
     const userdel = {
-      userId: '2',
-      firstName: 'Rashmi',
-      lastName: 'Chudamani',
-      employeeId: '1123',
+      userId: '1',
+      firstName: 'Sathish Kumar',
+      lastName: 'Pachayappan',
+      employeeId: '457878',
       projectId: null,
       taskId: null
     }

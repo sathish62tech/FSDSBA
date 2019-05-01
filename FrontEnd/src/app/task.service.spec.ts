@@ -42,12 +42,12 @@ describe('TaskService', () => {
   it('lets create child task', () => {
 
     const taskTest = {
-      parentTaskId: '123',
-      projectId: '111',
-      userId: '121',
-      task: 'tseting child',
-      startDate: '2019-03-23T00:00:00.000Z',
-      endDate: '2019-04-23T00:00:00.000Z',
+      parentTaskId: '1',
+      projectId: '1',
+      userId: '1',
+      task: 'Adding task',
+      startDate: '2019-04-30T00:00:00.000Z',
+      endDate: '2019-05-30T00:00:00.000Z',
       priority: 10,
       status: 'NEW'
     };
@@ -64,12 +64,12 @@ describe('TaskService', () => {
   it('should be able to update task', () => {
 
     const edittasktest = {
-      parentTaskId: '112',
-      projectId: '112',
-      userId: '121',
+      parentTaskId: '1',
+      projectId: '1',
+      userId: '1',
       task: 'edit task',
-      startDate: '2019-03-24T00:00:00.000Z',
-      endDate: '2019-03-30T00:00:00.000Z',
+      startDate: '2019-04-24T00:00:00.000Z',
+      endDate: '2019-05-30T00:00:00.000Z',
       priority: 30,
       status: null
     };
