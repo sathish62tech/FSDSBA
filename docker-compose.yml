@@ -6,7 +6,7 @@ services:
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=pass@word1
-      - MYSQL_DATABASE=microcred
+      - MYSQL_DATABASE=tasktrack
       - MYSQL_USER=root
       - MYSQL_PASSWORD=pass@word1
     ports:
@@ -14,7 +14,7 @@ services:
     restart: always
     network_mode: host
     volumes:
-      - /opt/microcred/mysqldb:/var/lib/mysql
+      - /opt/tasktrack/mysqldb:/var/lib/mysql
 
   tasktrackerbackend:
     image: backend-task-tracker
