@@ -4,7 +4,7 @@ pipeline {
     stage('Build Frontend Application') {
       steps {
         echo 'Building Frontend.....'
-        bat 'cd FinalFrontEnd && npm i && npm run-script build'
+        bat 'cd FrontEnd && npm i && npm run-script build'
       }
     }
     stage('Build Backend Application') {
@@ -16,7 +16,7 @@ pipeline {
     stage('Test Frontend Application') {
       steps {
         echo 'Testing Frontend.....'
-        bat 'cd FinalFrontEnd && npm i && npm test'
+        bat 'cd FrontEnd && npm i && npm test'
       }
     }
     stage('Test and install Backend Application') {
