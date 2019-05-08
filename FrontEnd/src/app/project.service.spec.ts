@@ -34,7 +34,7 @@ describe('ProjectService', () => {
     const projectcr8tst = {
       endDate: '2019-03-20T00:00:00.000Z',
       priority: 16,
-      project: 'TIM',
+      project: 'CareFirst',
       startDate: '2019-03-30T00:00:00.000Z',
       userId: '1123',
     }
@@ -53,7 +53,7 @@ describe('ProjectService', () => {
     const project = {
       endDate: '2019-03-30T00:00:00.000Z',
       priority: 2,
-      project: 'DCM',
+      project: 'BOFA',
       startDate: '2019-04-10T00:00:00.000Z',
       userId: '1123',
     }
