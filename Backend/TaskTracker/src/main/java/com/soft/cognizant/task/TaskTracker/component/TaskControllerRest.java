@@ -1,5 +1,6 @@
 package com.soft.cognizant.task.TaskTracker.component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -38,7 +39,14 @@ public class TaskControllerRest {
 	@ResponseBody
 	public List<Task> getTasks(@PathVariable int id) {
 		logger.info("getTasks invoked with " + id);
-		return taskService.getTasks(id);
+		List<Task> tasks = new ArrayList<Task>();
+		try {
+			tasks = taskService.getTasks(id);
+		} catch(Exception e) {
+			logger.error(e);
+		}
+		logger.info("getTasks completed " + tasks);
+		return tasks;
 	}
 
 	// Get Task List
@@ -48,7 +56,14 @@ public class TaskControllerRest {
 	@ResponseBody
 	public Task getTask(@PathVariable int id) {
 		logger.info("getTask invoked with " + id);
-		return taskService.getTask(id);
+		Task task = null;
+		try {
+			task = taskService.getTask(id);
+		} catch(Exception e) {
+			logger.error(e);
+		}
+		logger.info("getTask completed " + task);
+		return task;
 	}
 
 	// Create Tasks
