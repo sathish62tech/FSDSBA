@@ -1,5 +1,6 @@
 package com.soft.cognizant.task.TaskTracker.component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -38,9 +39,29 @@ public class UserControllerRest {
 	@ResponseBody
 	public List<User> getUsers() {
 		logger.info("getUsers invoked ");
-		return userService.getUsers();
+		List<User> users = new ArrayList<User>();
+		try {
+			users = userService.getUsers();
+		} catch(Exception e) {
+			logger.error(e);
+		}
+		return users;
 	}
 
+	@GetMapping(value = "/getuser/{id}")
+	@Produces({ "application/json" })
+	@ResponseBody
+	public User getUser(@PathVariable int id) throws TaskTrackerException {
+		logger.info("getUser invoked with " + id);
+		User userFetched = null;
+		try {
+			userFetched = userService.getUser(id);
+		} catch(Exception e) {
+			logger.error(e);
+		}
+		return userFetched;
+	}
+	
 	@PostMapping(value = "/addUser")
 	@Consumes({ "application/json" })
 	@ResponseBody
@@ -58,11 +79,11 @@ public class UserControllerRest {
 			return new ResponseEntity<User>(HttpStatus.CREATED);
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.header("message", "User not created, Check if User exists!").build();
+					.header("message", "User not created").build();
 		}
 	}
 
-	// Edit user
+	// Update user
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping(value = "/edituser")
 	@Consumes({ "application/json" })
@@ -80,7 +101,7 @@ public class UserControllerRest {
 			return new ResponseEntity<User>(HttpStatus.OK);
 		} else {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
-					.header("message", "Task Not Updated, Check Values provided").build();
+					.header("message", "User not Updated, Check Values provided").build();
 		}
 	}
 
@@ -104,16 +125,6 @@ public class UserControllerRest {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
 					.header("message", "Task Not Updated, Check Values provided").build();
 		}
-	}
-
-	@GetMapping(value = "/getuser/{id}")
-	@Produces({ "application/json" })
-	@ResponseBody
-	public User getUser(@PathVariable int id) throws TaskTrackerException {
-		logger.info("getUser invoked with " + id);
-		User userFetched = null;
-		userFetched = userService.getUser(id);
-		return userFetched;
 	}
 
 	@GetMapping(value = "/getuserbyproject/{id}")
