@@ -42,6 +42,17 @@ public class ProjectControllerRest {
 		return projectService.getProjects();
 	}
 
+	@GetMapping(value = "/getproject/{id}")
+	@Produces({ "application/json" })
+	@ResponseBody
+	public Project getProject(@PathVariable int id) throws TaskTrackerException {
+		logger.info("getProject invoked with " + id);
+		Project projectFetched = null;
+		projectFetched = projectService.getProject(id);
+		logger.info("getProject completed with " + projectFetched);
+		return projectFetched;
+	}
+	
 	@PostMapping(value = "/addproject")
 	@Consumes({ "application/json" })
 	@ResponseBody
@@ -99,16 +110,6 @@ public class ProjectControllerRest {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
 					.header("message", "Project Not Updated, Check Values provided").build();
 		}
-	}
-
-	@GetMapping(value = "/getproject/{id}")
-	@Produces({ "application/json" })
-	@ResponseBody
-	public Project getProject(@PathVariable int id) throws TaskTrackerException {
-		logger.info("getProject invoked with " + id);
-		Project projectFetched = null;
-		projectFetched = projectService.getProject(id);
-		return projectFetched;
 	}
 
 	// get 1 project
