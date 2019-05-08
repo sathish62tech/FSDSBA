@@ -1,3 +1,6 @@
+create database tasktrack;
+use tasktrack;
+
 CREATE TABLE `parent_task` (
   `parent_id` int(10) NOT NULL AUTO_INCREMENT,
   `parent_task` varchar(255) NOT NULL,
