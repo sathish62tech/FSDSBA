@@ -55,6 +55,7 @@ public class ParentControllerRest {
 		logger.info("createParentTask invoked with " + pname);
 		ParentTask parentTask = new ParentTask(pname);
 		parentService.createParentTask(parentTask);
+		logger.info("createParentTask completed " + pname);
 		return pname;
 	}
 
