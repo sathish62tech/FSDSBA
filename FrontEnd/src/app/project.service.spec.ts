@@ -34,7 +34,7 @@ describe('ProjectService', () => {
     const projectcr8tst = {
       endDate: '2019-03-20T00:00:00.000Z',
       priority: 16,
-      project: 'CareFirst',
+      project: 'TIM',
       startDate: '2019-03-30T00:00:00.000Z',
       userId: '1123',
     }
@@ -53,7 +53,7 @@ describe('ProjectService', () => {
     const project = {
       endDate: '2019-03-30T00:00:00.000Z',
       priority: 2,
-      project: 'BOFA',
+      project: 'DCM',
       startDate: '2019-04-10T00:00:00.000Z',
       userId: '1123',
     }
@@ -70,12 +70,12 @@ describe('ProjectService', () => {
   it('lets try delete project', () => {
 
     const projectdel = {
-      projectId: '1234',
-      project: 'Aetna Market Facing',
-      startDate: '2019-04-20T00:00:00.000Z',
-      endDate: '2019-05-30T00:00:00.000Z',
+      projectId: '1235',
+      project: 'DCM',
+      startDate: '2019-03-10T00:00:00.000Z',
+      endDate: '2019-03-30T00:00:00.000Z',
       priority: 23,
-      userId: '1',
+      userId: '9',
       tasks: 10,
       completed: 5,
     }
@@ -90,7 +90,7 @@ describe('ProjectService', () => {
 
   it('get project id by project name', () => {
 
-    service.getProjectByPName('AIG').subscribe();
+    service.getProjectByPName('TIM').subscribe();
 
     httpMock.expectOne((request) => {
       return request.method == 'GET'
