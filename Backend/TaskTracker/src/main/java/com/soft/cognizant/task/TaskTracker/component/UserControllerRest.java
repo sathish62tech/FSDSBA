@@ -45,6 +45,7 @@ public class UserControllerRest {
 		} catch(Exception e) {
 			logger.error(e);
 		}
+		logger.info("getUsers completed "+users);
 		return users;
 	}
 
@@ -59,6 +60,22 @@ public class UserControllerRest {
 		} catch(Exception e) {
 			logger.error(e);
 		}
+		logger.info("getUser completed "+userFetched);
+		return userFetched;
+	}
+	
+	@GetMapping(value = "/getuserbyproject/{id}")
+	@Produces({ "application/json" })
+	@ResponseBody
+	public User getUserByProjectId(@PathVariable int id) throws TaskTrackerException {
+		logger.info("getUserByProjectId invoked with " + id);
+		User userFetched = null;
+		try {
+			userFetched = userService.getUserByProjectId(id);
+		} catch(Exception e) {
+			logger.error(e);
+		}
+		logger.info("getUserByProjectId completed "+userFetched);
 		return userFetched;
 	}
 	
@@ -127,14 +144,4 @@ public class UserControllerRest {
 		}
 	}
 
-	@GetMapping(value = "/getuserbyproject/{id}")
-	@Produces({ "application/json" })
-	@ResponseBody
-	public User getUserByProjectId(@PathVariable int id) throws TaskTrackerException {
-		logger.info("getUserByProjectId invoked with " + id);
-		User userFetched = null;
-		userFetched = userService.getUserByProjectId(id);
-
-		return userFetched;
-	}
 }
