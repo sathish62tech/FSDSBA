@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.soft.cognizant.task.TaskTracker.componentTest.ParentControllerTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.01 s - in com.soft.cognizant.task.TaskTracker.componentTest.ParentControllerTest

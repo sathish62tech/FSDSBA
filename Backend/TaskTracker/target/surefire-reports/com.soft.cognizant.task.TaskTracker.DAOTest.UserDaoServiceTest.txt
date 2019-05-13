@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.soft.cognizant.task.TaskTracker.DAOTest.UserDaoServiceTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.779 s - in com.soft.cognizant.task.TaskTracker.DAOTest.UserDaoServiceTest

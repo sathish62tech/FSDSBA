@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.soft.cognizant.task.TaskTracker.componentTest.UserControllerTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.328 s - in com.soft.cognizant.task.TaskTracker.componentTest.UserControllerTest
