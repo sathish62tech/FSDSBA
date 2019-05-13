@@ -39,17 +39,17 @@ public class UserControllerTest {
 	private UserService userService;
 	
 	
-	User user = new User(2,"Rashmi","Chudamani",1123,1,1);
+	User user = new User(2,"Sathish","Kumar",1123,1,1);
 	User emptyUser = new User();
 	
-	String exampleJson = "{\"userId\": \"2\",\"firstName\": \"Rashmi\",\"lastName\": \"Chudamani\",\"employeeId\": \"1123\",\"projectId\": 1,\"taskId\": 1}";
+	String exampleJson = "{\"userId\": \"2\",\"firstName\": \"Sathish\",\"lastName\": \"Kumar\",\"employeeId\": \"1123\",\"projectId\": 1,\"taskId\": 1}";
 	
-	String arrayJson = "[{\"userId\": 2,\"firstName\": \"Rashmi\",\"lastName\": \"Chudamani\",\"employeeId\": 1123,\"projectId\": 1,\"taskId\": 1},{\"userId\": 3,\"firstName\": \"Ramya\",\"lastName\": \"Chudamani\",\"employeeId\": 5813,\"projectId\": 3,\"taskId\": 2}]";
+	String arrayJson = "[{\"userId\": 2,\"firstName\": \"Sathish\",\"lastName\": \"Kumar\",\"employeeId\": 1123,\"projectId\": 1,\"taskId\": 1},{\"userId\": 3,\"firstName\": \"Raja\",\"lastName\": \"AG\",\"employeeId\": 5813,\"projectId\": 3,\"taskId\": 2}]";
 	
 	boolean insertexpRet = true;
 	
-	List<User> lister = Arrays.asList(new User(2,"Rashmi","Chudamani",1123,1,1),
-									  new User(3,"Ramya","Chudamani",5813,3,2));
+	List<User> lister = Arrays.asList(new User(2,"Sathish","Kumar",1123,1,1),
+									  new User(3,"Raja","AG",5813,3,2));
 	
 	@Test
 	public void retrieveUserTest() throws Exception{
@@ -60,8 +60,8 @@ public class UserControllerTest {
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
 		System.out.println(result.getResponse());
-		String expected = "{\"userId\": 2,\"firstName\": \"Rashmi\","
-						+ "\"lastName\": \"Chudamani\",\"employeeId\": 1123,"
+		String expected = "{\"userId\": 2,\"firstName\": \"Sathish\","
+						+ "\"lastName\": \"Kumar\",\"employeeId\": 1123,"
 						+ "\"projectId\": 1,\"taskId\": 1}";
 		JSONAssert.assertEquals(expected, result.getResponse()
 				.getContentAsString(), false);
@@ -76,8 +76,8 @@ public class UserControllerTest {
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
 		System.out.println(result.getResponse());
-		String expected = "{\"userId\": 2,\"firstName\": \"Rashmi\","
-						+ "\"lastName\": \"Chudamani\",\"employeeId\": 1123,"
+		String expected = "{\"userId\": 2,\"firstName\": \"Sathish\","
+						+ "\"lastName\": \"Kumar\",\"employeeId\": 1123,"
 						+ "\"projectId\": 1,\"taskId\": 1}";
 		JSONAssert.assertEquals(expected, result.getResponse()
 				.getContentAsString(), false);
@@ -92,10 +92,6 @@ public class UserControllerTest {
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
 		System.out.println(result.getResponse());
-//		String expected ="{\"projectId\": 123,\"project\": \"TIM\",\"startDate\":null,"
-//				+ "\"endDate\": null,\"priority\": 12}";
-//		JSONAssert.assertEquals(expected, result.getResponse()
-//				.getContentAsString(), false);
 		
 		assertNotNull(result.getResponse().getContentAsString());
 	}
@@ -218,8 +214,8 @@ public class UserControllerTest {
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
 		System.out.println(result.getResponse());
-		String expected = "{\"userId\": 2,\"firstName\": \"Rashmi\","
-						+ "\"lastName\": \"Chudamani\",\"employeeId\": 1123,"
+		String expected = "{\"userId\": 2,\"firstName\": \"Sathish\","
+						+ "\"lastName\": \"Kumar\",\"employeeId\": 1123,"
 						+ "\"projectId\": 1,\"taskId\": 1}";
 		JSONAssert.assertEquals(expected, result.getResponse()
 				.getContentAsString(), false);
